@@ -1,0 +1,7 @@
+### Registration
+POST localhost:8080/auth/verification/phone
+Content-Type: application/json
+
+{
+  "phone": "+998991205577"
+}
