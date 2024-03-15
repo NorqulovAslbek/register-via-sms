@@ -13,7 +13,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "profile")
 public class ProfileEntity extends BaseEntity {
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
     private String email;
     @Column(name = "temp_email")

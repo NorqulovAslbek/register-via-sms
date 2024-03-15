@@ -1,7 +1,20 @@
-### Registration
-POST localhost:8080/auth/verification/phone
+### registration via sms
+POST localhost:8080/auth/phone
 Content-Type: application/json
 
 {
-  "phone": "+998991205577"
+  "name": "Aslbek",
+  "surname": "Norqulov",
+  "phone": "+998991205577",
+  "password": "@Aslbek1202"
 }
+
+### check profile via sms
+POST localhost:8080/auth/verification
+Content-Type: application/json
+
+{
+  "phone": "+998991205577",
+  "code": "75696"
+}
+

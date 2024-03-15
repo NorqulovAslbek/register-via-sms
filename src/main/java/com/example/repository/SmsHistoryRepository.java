@@ -19,4 +19,10 @@ public interface SmsHistoryRepository extends CrudRepository<SmsHistoryEntity, I
 
     @Query("SELECT s FROM SmsHistoryEntity AS s WHERE s.phone=?1 AND s.message=?2 AND s.createdDate between ?3 and ?4")
     Optional<SmsHistoryEntity> getPhoneAndCode(String phone, String code, LocalDateTime from, LocalDateTime to);
+
+//    @Query("from SmsHistoryEntity where phone=?1 and message=?2 and createdDate between ?3 and ?4")
+//    Optional<SmsHistoryEntity> checkSmsCode(String phone, String code, LocalDateTime from, LocalDateTime to);
+    @Query("SELECT s FROM SmsHistoryEntity AS s WHERE s.phone=?1 AND s.message=?2 AND s.createdDate between ?3 and ?4")
+    Optional<SmsHistoryEntity> checkSmsCode(String phone, String code,LocalDateTime from,LocalDateTime to);
 }
+
