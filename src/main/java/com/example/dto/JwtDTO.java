@@ -1,15 +1,19 @@
 package com.example.dto;
 
 import com.example.enums.ProfileRole;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class JwtDTO {
-    private Integer id;
-    private ProfileRole role;
-    private String phone;
+    Integer id;
+    ProfileRole role;
+    String phone;
+
     public JwtDTO(Integer id) {
         this.id = id;
     }

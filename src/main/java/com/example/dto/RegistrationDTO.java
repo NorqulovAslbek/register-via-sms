@@ -1,19 +1,22 @@
 package com.example.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegistrationDTO {
     @NotNull
-    private String name;
+    String name;
     @NotNull
-    private String surname;
+    String surname;
     @NotNull
-    private String phone;
+    String phone;
     @NotNull
-    private String password;
+    String password;
 }

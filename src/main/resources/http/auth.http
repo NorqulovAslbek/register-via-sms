@@ -1,5 +1,5 @@
 ### registration via sms
-POST localhost:8080/auth/phone
+POST localhost:8081/auth/phone
 Content-Type: application/json
 
 {
@@ -16,5 +16,15 @@ Content-Type: application/json
 {
   "phone": "+998991205577",
   "code": "75696"
+}
+
+### Login Admin
+POST localhost:8081/auth/login
+Content-Type: application/json
+Accept-Language: UZ
+
+{
+  "phone": "+998991205577",
+  "password": "@Aslbek1202"
 }
 

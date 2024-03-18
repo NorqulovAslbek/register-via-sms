@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.dto.AuthDTO;
+import com.example.dto.LoginDTO;
 import com.example.dto.ProfileDTO;
 import com.example.dto.RegistrationDTO;
 import com.example.entity.ProfileEntity;
@@ -11,6 +12,7 @@ import com.example.exp.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.SmsHistoryRepository;
 import com.example.util.JWTUtil;
+import com.example.util.MDUtil;
 import com.example.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,7 @@ public class AuthService {
         entity.setPhone(dto.getPhone());
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
+        entity.setPassword(MDUtil.encode(dto.getPassword()));
         entity.setStatus(ProfileStatus.REGISTRATION);
         entity.setRole(ProfileRole.ROLE_USER);
         profileRepository.save(entity);
@@ -95,6 +98,28 @@ public class AuthService {
         dto.setName(profileEntity.getName());
         dto.setSurname(profileEntity.getSurname());
         dto.setJwt(JWTUtil.encode(profileEntity.getId(), profileEntity.getRole()));
+        return dto;
+    }
+
+    public ProfileDTO auth(LoginDTO profile) { // login
+        Optional<ProfileEntity> optional = profileRepository.findByPhoneAndPassword(profile.getPhone(),
+                MDUtil.encode(profile.getPassword()));
+
+        if (optional.isEmpty()) {
+            throw new AppBadException("phone or password wrong");
+        }
+
+        ProfileEntity entity = optional.get();
+        if (!entity.getStatus().equals(ProfileStatus.ACTIVE)) {
+            throw new AppBadException("You are not registered");
+        }
+
+        ProfileDTO dto = new ProfileDTO();
+        dto.setName(entity.getName());
+        dto.setSurname(entity.getSurname());
+        dto.setRole(entity.getRole());
+        dto.setJwt(JWTUtil.encode(entity.getEmail(), entity.getRole()));
+
         return dto;
     }
 

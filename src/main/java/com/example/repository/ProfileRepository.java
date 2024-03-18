@@ -12,7 +12,8 @@ import java.util.Optional;
 
 public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer> {
     Optional<ProfileEntity> findByEmail(String username);
-
+    @Query(value = "FROM ProfileEntity WHERE phone=?1 AND password=?2 AND visible=true")
+    Optional<ProfileEntity> findByPhoneAndPassword(String phone, String password);
     @Query(value = "select * from profile where phone=:phone", nativeQuery = true)
     Optional<ProfileEntity> findByPhone(@Param("phone") String phone);
 
